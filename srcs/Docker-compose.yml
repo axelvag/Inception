@@ -3,9 +3,9 @@ version: '3'
 
 services:
   mariadb:
-    container_name: mariadb			# Le nom du container, oui vraiment.
+    container_name: mariadb # Le nom du container, oui vraiment.
     networks:
-    - inception            			# à quel network il appartient
+    - inception # à quel network il appartient
     build: 
       context: ./requirements/mariadb 	# ou se trouve son Dockerfile
       dockerfile: Dockerfile			# le nom du Dockerfile ?!
