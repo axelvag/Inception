@@ -19,7 +19,7 @@ services:
   nginx:
     container_name: nginx
     volumes:
-    - wordpress:/var/www/wordpress:rw
+    - wordpress:/var/www/wordpress
     networks:
     - inception
     depends_on: # Nouvelle ligne, indiquant de ne pas démarrer NGINX tant que WordPress n'a pas démarré.
