@@ -14,6 +14,8 @@ COPY tools/mariadb.sh /mariadb.sh
 
 RUN chmod +x /mariadb.sh
 
+RUN mkdir -p /Users/avaganay/data/mariadb
+
 ENTRYPOINT ["/mariadb.sh"]
     
 EXPOSE 3306
