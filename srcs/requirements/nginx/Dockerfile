@@ -5,7 +5,7 @@ RUN apt-get upgrade -y
 
 #installer tout les paquets necessaires en une seule commande
 RUN apt update && \
-    apt install -y nginx vim curl dumb-init openssl
+    apt install -y nginx vim curl openssl
 #    rm -rf /var/lib/apt/lists/*
 
 #avoir le certificat ssl, -x509 pour certificat auto-signé, -newkey pour générer une nouvelle clé privée rsa, -nodes pour ne pas crypter la clé privée
