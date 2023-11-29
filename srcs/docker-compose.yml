@@ -69,52 +69,43 @@
 version: '3'
 
 services:
-  # Service MariaDB
-  mariadb:
-    image: mariadb:latest
-    container_name: mon-mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: my-secret-pw
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
-    volumes:
-      - ./data/mariadb:/var/lib/mysql
-    networks:
-      - inception
-
-  # Service WordPress
   wordpress:
     image: wordpress:latest
-    container_name: mon-wordpress
-    environment:
-      WORDPRESS_DB_HOST: mariadb
-      WORDPRESS_DB_NAME: mydatabase
-      WORDPRESS_DB_USER: myuser
-      WORDPRESS_DB_PASSWORD: mypassword
+    container_name: wordpress
+    depends_on:
+      - db
     volumes:
-      - ./html:/var/www/html
+      - wordpress_data:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
     ports:
       - "8000:80"
-    depends_on:
-      - mariadb
-    networks:
-      - inception
 
-  # Service Nginx
   nginx:
     image: nginx:latest
-    container_name: mon-nginx
-    volumes:
-      - ./nginx.conf/etc/nginx/conf.d/nginx.conf
-      - ./html:/usr/share/nginx/html
+    container_name: nginx
     ports:
       - "80:80"
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
     depends_on:
       - wordpress
-    networks:
-      - inception
 
-networks:
-  inception:
-    driver: bridge  # le type de commucation entre les 3 containers
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+volumes:
+  wordpress_data:
+  db_data:
