@@ -79,6 +79,9 @@ services:
       MYSQL_PASSWORD: mypassword
     volumes:
       - ./data/mariadb:/var/lib/mysql
+    networks:
+      - inception
+
   # Service WordPress
   wordpress:
     image: wordpress:latest
@@ -94,6 +97,8 @@ services:
       - "8080:80"
     depends_on:
       - mariadb
+    networks:
+      - inception
 
   # Service Nginx
   nginx:
@@ -106,6 +111,9 @@ services:
       - "8000:80"
     depends_on:
       - wordpress
+    networks:
+      - inception
 
 networks:
-  my-network:
+  inception:
+    driver: bridge  # le type de commucation entre les 3 containers
