@@ -31,7 +31,7 @@ FROM mariadb:latest
 # ENV MYSQL_PASSWORD=mypassword
 
 # Optionnel : Copier des scripts SQL pour les exécuter lors de l'initialisation de la base de données
-COPY ./scripts/ /docker-entrypoint-initdb.d/
+# COPY ./scripts/ /docker-entrypoint-initdb.d/
 
 # Exposer le port MySQL par défaut (3306)
 EXPOSE 3306
