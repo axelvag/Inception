@@ -1,69 +1,118 @@
-# derniere version de docker-compose
+# # derniere version de docker-compose
+# version: '3'
+
+# services:
+#   mariadb:
+#     container_name: mariadb # Le nom du container, oui vraiment.
+#     networks:
+#     - inception # à quel network il appartient
+#     build: 
+#       context: ./requirements/mariadb # ou se trouve son Dockerfile
+#       dockerfile: Dockerfile  # le nom du Dockerfile ?!
+#     env_file: .env  # le fichier d'environnement pour transmettre les variables
+#     volumes:  # Voir plus bas
+#     - /Users/avaganay/data/mariadb:/var/lib/mysql:rw  # - mariadb:/var/lib/mysql
+#     restart: unless-stopped # redémarre tant qu'il n'est pas stoppé 
+#     expose: # le port à exposer
+#     - "3306"
+
+#   nginx:
+#     container_name: nginx
+#     volumes:
+#     - wordpress:/var/www/wordpress
+#     networks:
+#     - inception
+#     depends_on: # Nouvelle ligne, indiquant de ne pas démarrer NGINX tant que WordPress n'a pas démarré.
+#     - wordpress
+#     build: 
+#       context: ./requirements/nginx
+#       dockerfile: Dockerfile
+#     env_file: .env
+#     ports:
+#     - "443:443" # on indique le port qui sera exposé a la machine locale
+#     restart: on-failure # Ici nous changeons, le container redémarrera uniquement en cas de crash.
+
+#   wordpress:
+#     container_name: wordpress
+#     volumes:
+#     - /Users/avaganay/data/wordpress:/var/www/wordpress
+#     networks:
+#     - inception
+#     build: 
+#       context: ./requirements/wordpress
+#       dockerfile: Dockerfile
+#     env_file: .env
+#     depends_on: # WordPress démarrera uniquement après MariaDB (sinon il ne pourra pas configurer la base de données...)
+#     - mariadb
+#     restart: on-failure
+#     expose: 
+#     - "9000"
+
+# networks:
+#   inception:
+#     driver: bridge  # le type de commucation entre les 3 containers
+
+# volumes:
+#   wordpress:
+#     driver: local # ici nous stockons le volume en local
+#     driver_opts:
+#       type: 'none'  # aucun type spécifique
+#       o: 'bind'
+#       device: '/Users/avaganay/data/wordpress'  #Ou stocker le dossier sur votre ordinateur en local
+#   mariadb:
+#     driver: local
+#     driver_opts:
+#       type: 'none' 
+#       o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
+#       device: '/Users/avaganay/data/mariadb'  #Ou stocker le dossier sur votre ordinateur en local
+
 version: '3'
-
 services:
-  mariadb:
-    image: mariadb:latest # l'image de base
-    container_name: mariadb # Le nom du container, oui vraiment.
-    networks:
-    - inception # à quel network il appartient
-    # build: 
-    #   context: ./requirements/mariadb # ou se trouve son Dockerfile
-    #   dockerfile: Dockerfile  # le nom du Dockerfile ?!
-    env_file: .env  # le fichier d'environnement pour transmettre les variables
-    volumes:  # Voir plus bas
-    - /Users/avaganay/data/mariadb:/var/lib/mysql:rw  # - mariadb:/var/lib/mysql
-    restart: unless-stopped # redémarre tant qu'il n'est pas stoppé 
-    expose: # le port à exposer
-    - "3306"
-
-  nginx:
-    container_name: nginx
+  # Service MariaDB
+  db:
+    image: mariadb:latest
+    container_name: mon-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
     volumes:
-    - wordpress:/var/www/wordpress
+      - ./data/mariadb:/var/lib/mysql
     networks:
-    - inception
-    depends_on: # Nouvelle ligne, indiquant de ne pas démarrer NGINX tant que WordPress n'a pas démarré.
-    - wordpress
-    build: 
-      context: ./requirements/nginx
-      dockerfile: Dockerfile
-    env_file: .env
-    ports:
-    - "443:443" # on indique le port qui sera exposé a la machine locale
-    restart: on-failure # Ici nous changeons, le container redémarrera uniquement en cas de crash.
+      - my-network
 
+  # Service WordPress
   wordpress:
-    # image: wordpress:latest
-    container_name: wordpress
+    image: wordpress:latest
+    container_name: mon-wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: mydatabase
+      WORDPRESS_DB_USER: myuser
+      WORDPRESS_DB_PASSWORD: mypassword
     volumes:
-    - /Users/avaganay/data/wordpress:/var/www/wordpress
+      - ./html:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
     networks:
-    - inception
-    build: 
-      context: ./requirements/wordpress
-      dockerfile: Dockerfile
-    env_file: .env
-    depends_on: # WordPress démarrera uniquement après MariaDB (sinon il ne pourra pas configurer la base de données...)
-    - mariadb
-    restart: on-failure
-    expose: 
-    - "9000"
+      - my-network
+
+  # Service Nginx
+  nginx:
+    image: nginx:latest
+    container_name: mon-nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./html:/usr/share/nginx/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - wordpress
+    networks:
+      - my-network
 
 networks:
-  inception:
-    driver: bridge  # le type de commucation entre les 3 containers
-
-volumes:
-  wordpress:
-    driver: local # ici nous stockons le volume en local
-    driver_opts:
-      type: 'none'  # aucun type spécifique
-      o: 'bind'
-      device: '/Users/avaganay/data/wordpress'  #Ou stocker le dossier sur votre ordinateur en local
-  mariadb:
-    driver: local
-    driver_opts:
-      type: 'none' 
-      o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
-      device: '/Users/avaganay/data/mariadb'  #Ou stocker le dossier sur votre ordinateur en local
+  my-network:
