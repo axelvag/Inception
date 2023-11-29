@@ -20,6 +20,6 @@ RUN chmod +x /mariadb.sh
 
 RUN mkdir -p /Users/avaganay/data/mariadb
 
-ENTRYPOINT ["/mariadb.sh"]
-    
 EXPOSE 3306
+    
+ENTRYPOINT ["/mariadb.sh"]
