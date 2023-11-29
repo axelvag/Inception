@@ -67,6 +67,7 @@
 #       device: '/Users/avaganay/data/mariadb'  #Ou stocker le dossier sur votre ordinateur en local
 
 version: '3'
+
 services:
   # Service MariaDB
   mariadb:
