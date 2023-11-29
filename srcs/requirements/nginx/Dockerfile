@@ -21,7 +21,7 @@ RUN mkdir -p /var/run/nginx
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 # accorde les droits d'écriture, lecture et exec sur le dossier html
-RUN chmod 755 /var/www/html
+RUN chmod 777 /var/www/html
 # donne les droits au groupe www-data
 RUN chown -R www-data:www-data /var/www/html
 

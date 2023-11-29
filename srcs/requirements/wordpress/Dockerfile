@@ -30,15 +30,18 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
 # installer le CLI qui configure automatiquement wordpress
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /var/www/html/
+RUN mkdir -p /run/php
+
+EXPOSE 9000
 
 COPY ./tools/CLI_config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/CLI_config.sh
 ENTRYPOINT ["/usr/local/bin/CLI_config.sh"]
 # CMD ["/bin/bash", "/tmp/CLI_config.sh" ]
 
-EXPOSE 9000
 
 # CMD ["/usr/sbin/php-fpm7.3", "-F"]
