@@ -33,6 +33,7 @@ services:
     restart: on-failure # Ici nous changeons, le container redémarrera uniquement en cas de crash.
 
   wordpress:
+    image: wordpress:latest
     container_name: wordpress
     volumes:
     - /Users/avaganay/data/wordpress:/var/www/wordpress
