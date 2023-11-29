@@ -25,10 +25,10 @@
 FROM mariadb:latest
 
 # Optionnel : Définir des variables d'environnement pour MariaDB
-ENV MYSQL_ROOT_PASSWORD=my-secret-pw
-ENV MYSQL_DATABASE=mydatabase
-ENV MYSQL_USER=myuser
-ENV MYSQL_PASSWORD=mypassword
+# ENV MYSQL_ROOT_PASSWORD=my-secret-pw
+# ENV MYSQL_DATABASE=mydatabase
+# ENV MYSQL_USER=myuser
+# ENV MYSQL_PASSWORD=mypassword
 
 # Optionnel : Copier des scripts SQL pour les exécuter lors de l'initialisation de la base de données
 COPY ./scripts/ /docker-entrypoint-initdb.d/
