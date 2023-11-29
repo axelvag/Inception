@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile  # le nom du Dockerfile ?!
     env_file: .env  # le fichier d'environnement pour transmettre les variables
     volumes:  # Voir plus bas
-    - /Users/avaganay/data/mariadb:/var/lib/mysql  # - mariadb:/var/lib/mysql
+    - /Users/avaganay/data/mariadb:/var/lib/mysql:rw  # - mariadb:/var/lib/mysql
     restart: unless-stopped # redémarre tant qu'il n'est pas stoppé 
     expose: # le port à exposer
     - "3306"
