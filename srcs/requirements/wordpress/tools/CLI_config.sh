@@ -16,8 +16,8 @@ wp user create
 # Mets les droit sur le dossier d'installation de wp
 chown -R www-data:www-data /var/www/html/
 # Lance php-
-echo 'Starting php-fpm7.3'
-/usr/sbin/php-fpm7.3 -F
+# echo 'Starting php-fpm7.3'
+# /usr/sbin/php-fpm7.3 -F
 
 
 # echo "== Installing and setting up Wordpress =="
