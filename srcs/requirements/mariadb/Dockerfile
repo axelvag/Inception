@@ -1,28 +1,28 @@
-# FROM debian:buster
+FROM debian:buster
 
-# RUN apt-get update -y
-# RUN apt-get upgrade -y
+RUN apt-get update -y
+RUN apt-get upgrade -y
 
-# RUN apt update && \
-#     apt install dumb-init curl less -y
+RUN apt update && \
+    apt install dumb-init curl less -y
 
-# RUN apt update && \
-#     apt install -y mariadb-server
+RUN apt update && \
+    apt install -y mariadb-server
 
 
-# COPY tools/mariadb.sh /mariadb.sh
+COPY tools/mariadb.sh /mariadb.sh
 
-# RUN chmod +x /mariadb.sh
+RUN chmod +x /mariadb.sh
 
-# RUN mkdir -p /Users/avaganay/data/mariadb
+RUN mkdir -p /Users/avaganay/data/mariadb
 
-# ENTRYPOINT ["/mariadb.sh"]
+ENTRYPOINT ["/mariadb.sh"]
     
-# EXPOSE 3306
+EXPOSE 3306
 
 
 # Utilisation de l'image officielle de MariaDB depuis Docker Hub
-FROM mariadb:latest
+# FROM mariadb:latest
 
 # Optionnel : Définir des variables d'environnement pour MariaDB
 # ENV MYSQL_ROOT_PASSWORD=my-secret-pw
@@ -34,7 +34,7 @@ FROM mariadb:latest
 # COPY ./scripts/ /docker-entrypoint-initdb.d/
 
 # Exposer le port MySQL par défaut (3306)
-EXPOSE 3306
+# EXPOSE 3306
 
 # CMD est défini dans l'image officielle MariaDB pour démarrer le serveur MySQL
 # Vous pouvez également ajouter des options de configuration ici si nécessaire
