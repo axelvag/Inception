@@ -30,11 +30,11 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-COPY ./tools/CLI_config.sh /tmp/
-RUN chmod +x /tmp/CLI_config.sh
-ENTRYPOINT ["/tmp/CLI_config.sh"]
+COPY ./tools/CLI_config.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/CLI_config.sh
+ENTRYPOINT ["/usr/local/bin/CLI_config.sh"]
 # CMD ["/bin/bash", "/tmp/CLI_config.sh" ]
 
 EXPOSE 9000
 
-CMD ["/usr/sbin/php-fpm7.3", "-F"]
+# CMD ["/usr/sbin/php-fpm7.3", "-F"]
