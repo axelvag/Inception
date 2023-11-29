@@ -69,7 +69,7 @@
 version: '3'
 services:
   # Service MariaDB
-  db:
+  mariadb:
     image: mariadb:latest
     container_name: mon-mariadb
     environment:
@@ -80,14 +80,14 @@ services:
     volumes:
       - ./data/mariadb:/var/lib/mysql
     networks:
-      - my-network
+      - inception
 
   # Service WordPress
   wordpress:
     image: wordpress:latest
     container_name: mon-wordpress
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_NAME: mydatabase
       WORDPRESS_DB_USER: myuser
       WORDPRESS_DB_PASSWORD: mypassword
@@ -96,9 +96,9 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - db
+      - mariadb
     networks:
-      - my-network
+      - inception
 
   # Service Nginx
   nginx:
@@ -112,7 +112,7 @@ services:
     depends_on:
       - wordpress
     networks:
-      - my-network
+      - inception
 
 networks:
   my-network:
