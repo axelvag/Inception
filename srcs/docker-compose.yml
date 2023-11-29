@@ -94,7 +94,7 @@ services:
     volumes:
       - ./html:/var/www/html
     ports:
-      - "8080:80"
+      - "8000:80"
     depends_on:
       - mariadb
     networks:
@@ -108,7 +108,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./html:/usr/share/nginx/html
     ports:
-      - "8000:80"
+      - "80:80"
     depends_on:
       - wordpress
     networks:
