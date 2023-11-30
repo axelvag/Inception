@@ -2,7 +2,7 @@
 sleep 10
 
 # Download and install WordPress
-if [ -f ./wp-config.php ]
+if [ -f /var/www/html/wp-config.php ]
 then
 	echo "Wordpress already installer"
 else
