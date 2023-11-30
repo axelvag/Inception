@@ -35,7 +35,7 @@ services:
   wordpress:
     container_name: wordpress
     volumes:
-    - /Users/avaganay/data/wordpress:/var/www/wordpress
+    - /Users/avaganay/data/wordpress:/var/www/html
     networks:
     - inception
     build: 
