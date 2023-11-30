@@ -1,6 +1,8 @@
 # on attend que mariaDb soit up
 sleep 10
 
+rm -rf /var/www/html/*
+
 # Download and install WordPress
 if [ -f /var/www/html/wp-config.php ]
 then
