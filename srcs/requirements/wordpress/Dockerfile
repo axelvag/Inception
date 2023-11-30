@@ -9,7 +9,7 @@
 
 FROM debian:buster
 
-RUN echo DockerfileWordpress
+# RUN echo DockerfileWordpress
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
@@ -48,7 +48,7 @@ EXPOSE 9000
 
 COPY ./tools/CLI_config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/CLI_config.sh
-# CMD ["/bin/sh", "/usr/local/bin/CLI_config.sh" ]
+CMD ["/bin/sh", "/usr/local/bin/CLI_config.sh" ]
 
 # ENTRYPOINT ["/usr/local/bin/CLI_config.sh"]
 
