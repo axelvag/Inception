@@ -1,43 +1,25 @@
-.phony : setup stop start re log clean build rebuild
+.PHONY: all build rebuild stop stop volumes fclean
 
-all : setup start
+all: volumes build up
 
-DOCKER_COMPOSE = docker compose
-DOCKER_COMPOSE_FILE = ./srcs/docker-compose.yml
+build:
+		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env build
 
-setup :
-	@echo "----Setup Docker-----------"
+up:
+		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env up 
 
-stop :
-	@echo "----Stopping all Docker----"
-	sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) stop
-	@echo "----All Docker stopped-----"
+stop:
+		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env stop
+volumes:
+		sudo mkdir -p /home/jlaisne/data/wordpress
+		sudo mkdir -p /home/jlaisne/data/mariadb
 
-build :
-	@echo "----Building all Docker----"
-	sudo mkdir -p /home/avaganay/data/wordpress
-	sudo mkdir -p /home/avaganay/data/mariadb
-	sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build
-	@echo "----All Docker built-------"
+fclean:
+		sudo docker-compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
+		sudo rm -rf /home/jlaisne/data/wordpress
+		sudo rm -rf /home/jlaisne/data/mariadb
 
-start : build
-	@echo "----Starting all Docker----"
-	sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
-	@echo "----All Docker started-----"
+rebuild:
+		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env build --no-cache
 
-clean :
-	@echo "----Cleaning all Docker----"
-	sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down --rmi all --remove-orphans
-	sudo rm -rf /home/avaganay/data/wordpress
-	sudo rm -rf /home/avaganay/data/mariadb
-	@echo "----All Docker cleaned-----"
-
-log :
-	@echo "----Status Docker----------"
-	sudo docker ps
-
-rebuild :
-	@echo "----Rebuilding all Docker----"
-	sudo $(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) build --no-cache
-
-re : clean rebuild start
+re: fclean rebuild all
