@@ -1,116 +1,75 @@
-on attend que mariaDb soit up
+#!/bin/bash
+
+# Check if WordPress is already installed
+wp core download --allow-root
+
 sleep 10
 
-rm -rf /var/www/html/*
-
-# Download and install WordPress
-# if [ -f /var/www/html/wp-config.php ]
-# then
-# 	echo "Wordpress already installer"
-# else
-echo "Installing Wordpress"
-
-wp core download --allow-root --path=/var/www/html
-
-# on met le .env dans wordpress
 wp config create --dbname=$MYSQL_DATABASE \
-    --dbuser=$MYSQL_USER \
-    --dbpass=$MYSQL_PASSWORD \
-    --dbhost=$WORDPRESS_DB_HOST \
-    --dbprefix=wp_ --allow-root
+                --dbuser=$MYSQL_USER \
+                --dbpass=$MYSQL_PASSWORD \
+                --dbhost=$WORDPRESS_DB_HOST \
+                --dbprefix=wp_ --allow-root
 
-cat /var/www/html/wp-config.php
-
-# auto rempli la page de perso
+# Install WordPress
 wp core install --allow-root \
---url="$DOMAIN_NAME" \
---title="Inception" \
---admin_user="$WORDPRESS_ADMIN_NAME" \
---admin_password="$WORDPRESS_ADMIN_PASSWORD" \
---admin_email="$WORDPRESS_ADMIN_EMAIL"
+  --url="$DOMAIN_NAME" \
+  --title="Inception" \
+  --admin_user="$WORDPRESS_ADMIN_NAME" \
+  --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
+  --admin_email="$WORDPRESS_ADMIN_EMAIL"
 
 wp user create --allow-root \
-"$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
---user_pass="$WORDPRESS_USER_PASSWORD" \
---role=subscriber
+  "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
+  --user_pass="$WORDPRESS_USER_PASSWORD" \
+  --role=subscriber
 
-# fi
-
-# Mets les droit sur le dossier d'installation de wp
+  # Set appropriate permissions
 chown -R www-data:www-data /var/www/html/
-# Lance php-
-echo 'Starting php-fpm7.3'
+
+# Start PHP-FPM
 /usr/sbin/php-fpm7.3 -F
 
+# # on attend que mariaDb soit up
+# sleep 10
 
-# echo "== Installing and setting up Wordpress =="
+# rm -rf /var/www/html/*
 
-# cd /var/www/html/wordpress
+# # Download and install WordPress
+# # if [ -f /var/www/html/wp-config.php ]
+# # then
+# # 	echo "Wordpress already installer"
+# # else
+# echo "Installing Wordpress"
 
-# # Download
-# wp core download --path=/var/www/html/wordpress --allow-root
+# wp core download --allow-root --path=/var/www/html
 
-# # Create config file wp-config.php with the appropriate database parameters (these are env variables in the .env file)
-# wp config create --path=/var/www/html/wordpress --allow-root --dbname=$DB_DATABASE --dbhost=$DB_HOST --dbprefix=wp_ --dbuser=$DB_USER_NAME --dbpass=$DB_USER_PASSWORD
+# # on met le .env dans wordpress
+# wp config create --dbname=$MYSQL_DATABASE \
+#     --dbuser=$MYSQL_USER \
+#     --dbpass=$MYSQL_PASSWORD \
+#     --dbhost=$WORDPRESS_DB_HOST \
+#     --dbprefix=wp_ --allow-root
 
-# # Install wordpress for our website (again, variables are in the .env file)
-# wp core install --path=/var/www/html/wordpress --allow-root --url=$DOMAIN_NAME --title="$WP_SITE_TITLE" --admin_user=$WP_ADMIN_NAME --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL
+# cat /var/www/html/wp-config.php
 
-# wp plugin update --path=/var/www/html/wordpress --allow-root --all
+# # auto rempli la page de perso
+# wp core install --allow-root \
+# --url="$DOMAIN_NAME" \
+# --title="Inception" \
+# --admin_user="$WORDPRESS_ADMIN_NAME" \
+# --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
+# --admin_email="$WORDPRESS_ADMIN_EMAIL"
 
-# # Create default user
-# wp user create --path=/var/www/html/wordpress --allow-root $WP_USER_NAME $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD
+# wp user create --allow-root \
+# "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
+# --user_pass="$WORDPRESS_USER_PASSWORD" \
+# --role=subscriber
 
-# # Set the owner of the content of our site to www-data user and group
-# # For security reasons, we want to restrict who has access to these files
-# chown www-data:www-data /var/www/html/wordpress/wp-content/uploads --recursive
+# # fi
 
-# mkdir -p /run/php/
-# php-fpm7.3 -F
-
-
-
-#!/bin/sh
-
-#check if wp-config.php exist
-# if [ -f ./wp-config.php ]
-# then
-# 	echo "wordpress already downloaded"
-# else
-
-# ####### MANDATORY PART ##########
-
-# 	#Download wordpress and all config file
-# 	wget http://wordpress.org/latest.tar.gz
-# 	tar xfz latest.tar.gz
-# 	mv wordpress/* .
-# 	rm -rf latest.tar.gz
-# 	rm -rf wordpress
-
-# 	#Inport env variables in the config file
-# 	sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
-# 	sed -i "s/password_here/$MYSQL_PASSWORD/g" wp-config-sample.php
-# 	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config-sample.php
-# 	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wp-config-sample.php
-# 	cp wp-config-sample.php wp-config.php
-# ###################################
-
-# ####### BONUS PART ################
-
-# ## redis ##
-
-# 	wp config set WP_REDIS_HOST redis --allow-root #I put --allowroot because i am on the root user on my VM
-#   	wp config set WP_REDIS_PORT 6379 --raw --allow-root
-#  	wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
-#   	#wp config set WP_REDIS_PASSWORD $REDIS_PASSWORD --allow-root
-#  	wp config set WP_REDIS_CLIENT phpredis --allow-root
-# 	wp plugin install redis-cache --activate --allow-root
-#     wp plugin update --all --allow-root
-# 	wp redis enable --allow-root
-
-# ###  end of redis part  ###
-
-# ###################################
-# fi
-
-# exec "$@"
+# # Mets les droit sur le dossier d'installation de wp
+# chown -R www-data:www-data /var/www/html/
+# # Lance php-
+# echo 'Starting php-fpm7.3'
+# /usr/sbin/php-fpm7.3 -F
