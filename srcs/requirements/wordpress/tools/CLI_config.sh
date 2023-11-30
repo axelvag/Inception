@@ -10,6 +10,7 @@ else
 
     wp core download --allow-root --path=/var/www/html
 
+    echo "1"
     # on met le .env dans wordpress
     wp config create --dbname=$MYSQL_DATABASE \
         --dbuser=$MYSQL_USER \
@@ -17,6 +18,7 @@ else
         --dbhost=$WORDPRESS_DB_HOST \
         --dbprefix=wp_ --allow-root
 
+    echo "2"
     # auto rempli la page de perso
     wp core install --allow-root \
     --url="$DOMAIN_NAME" \
@@ -25,6 +27,7 @@ else
     --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
     --admin_email="$WORDPRESS_ADMIN_EMAIL"
 
+    echo "3"
     wp user create --allow-root \
     "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
     --user_pass="$WORDPRESS_USER_PASSWORD" \
