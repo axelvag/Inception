@@ -28,10 +28,10 @@ RUN mkdir -p /run/php
 
 EXPOSE 9000
 
-COPY ./tools/wp_config.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/wp_config.sh
+COPY ./tools/wp_setup.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wp_setup.sh
 
-ENTRYPOINT ["/usr/local/bin/wp_config.sh"]
+ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
 
 # FROM debian:buster
 
