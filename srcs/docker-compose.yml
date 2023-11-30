@@ -34,15 +34,14 @@ services:
     restart: on-failure # Ici nous changeons, le container redémarrera uniquement en cas de crash.
 
   wordpress:
-    image: wordpress:latest
     container_name: wordpress
     volumes:
     - /Users/avaganay/data/wordpress:/var/www/html
     networks:
     - inception
-    # build: 
-    #   context: ./requirements/wordpress
-    #   dockerfile: Dockerfile
+    build: 
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
     env_file: .env
     depends_on: # WordPress démarrera uniquement après MariaDB (sinon il ne pourra pas configurer la base de données...)
     - mariadb
