@@ -7,13 +7,13 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /var/run/mysqld && mkdir -p /var/lib/mysql
 
 COPY conf/mariadb.conf	/etc/mysql/mariadb.conf.d/mariadb.conf
-COPY ./tools/config.sh /config.sh
+COPY ./tools/mariadb.sh /mariadb.sh
 
-RUN chmod +x config.sh && chmod -R 777 /var/lib/mysql /var/run/mysqld
+RUN chmod +x mariadb.sh && chmod -R 777 /var/lib/mysql /var/run/mysqld
 
 EXPOSE 3306
 
-ENTRYPOINT ["./config.sh"]
+ENTRYPOINT ["./mariadb.sh"]
 
 # FROM debian:buster
 
