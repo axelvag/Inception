@@ -9,6 +9,8 @@
 
 FROM debian:buster
 
+RUN echo DockerfileWordpress
+
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
