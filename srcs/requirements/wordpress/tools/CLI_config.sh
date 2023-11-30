@@ -1,6 +1,13 @@
 # on attend que mariaDb soit up
 sleep 10
 
+# Download and install WordPress
+wp core download --allow-root --path=/var/www/html
+if [ $? -ne 0 ]; then
+   echo "Error downloading WordPress."
+   exit 1
+fi
+
 # on met le .env dans wordpress
 wp config create --dbname=$MYSQL_DATABASE \
     --dbuser=$MYSQL_USER \
