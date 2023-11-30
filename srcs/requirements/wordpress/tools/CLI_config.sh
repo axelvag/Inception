@@ -9,9 +9,17 @@ wp config create	--allow-root \
     --dbhost=mariadb:3306 --path='/var/www/wordpress'
 
 # auto rempli la page de perso
-wp core install
+wp core install --allow-root \
+  --url="$DOMAIN_NAME" \
+  --title="Inception" \
+  --admin_user="$WORDPRESS_ADMIN_NAME" \
+  --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
+  --admin_email="$WORDPRESS_ADMIN_EMAIL"
 
-wp user create
+wp user create --allow-root \
+  "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
+  --user_pass="$WORDPRESS_USER_PASSWORD" \
+  --role=subscriber
 
 # Mets les droit sur le dossier d'installation de wp
 chown -R www-data:www-data /var/www/html/
