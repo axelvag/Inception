@@ -18,7 +18,7 @@ else
         --dbhost=$WORDPRESS_DB_HOST \
         --dbprefix=wp_ --allow-root
 
-    cat /wp-config.php
+    cat /var/www/html/wp-config.php
 
     echo "2"
     # auto rempli la page de perso
