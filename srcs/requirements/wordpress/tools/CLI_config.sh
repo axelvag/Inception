@@ -2,11 +2,11 @@
 sleep 10
 
 # on met le .env dans wordpress
-wp config create	--allow-root \
-    --dbname=$MYSQL_DATABASE \
+wp config create --dbname=$MYSQL_DATABASE \
     --dbuser=$MYSQL_USER \
     --dbpass=$MYSQL_PASSWORD \
-    --dbhost=mariadb:3306 --path='/var/www/wordpress'
+    --dbhost=$WORDPRESS_DB_HOST \
+    --dbprefix=wp_ --allow-root
 
 # auto rempli la page de perso
 wp core install --allow-root \
