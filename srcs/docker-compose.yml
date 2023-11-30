@@ -13,7 +13,7 @@ services:
     volumes:  # Voir plus bas
     - /Users/avaganay/data/mariadb:/var/lib/mysql:rw  # - mariadb:/var/lib/mysql
     restart: unless-stopped # redémarre tant qu'il n'est pas stoppé 
-    expose: # le port à exposer
+    ports: # le port à exposer
     - "3306"
 
   nginx:
@@ -45,7 +45,7 @@ services:
     depends_on: # WordPress démarrera uniquement après MariaDB (sinon il ne pourra pas configurer la base de données...)
     - mariadb
     restart: on-failure
-    expose: 
+    ports: 
     - "9000"
 
 networks:
