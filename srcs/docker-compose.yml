@@ -61,11 +61,11 @@ volumes:
       o: 'bind'
       device: '/Users/avaganay/data/wordpress'  #Ou stocker le dossier sur votre ordinateur en local
   mariadb:
-  #   driver: local
-  #   driver_opts:
-  #     type: 'none' 
-  #     o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
-  #     device: '/Users/avaganay/data/mariadb'  #Ou stocker le dossier sur votre ordinateur en local
+    driver: local
+    driver_opts:
+      type: 'none' 
+      o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
+      device: '/Users/avaganay/data/mariadb'  #Ou stocker le dossier sur votre ordinateur en local
 
 # version: '3'
 
