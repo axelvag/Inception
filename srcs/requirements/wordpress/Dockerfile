@@ -46,10 +46,10 @@ RUN mkdir -p /run/php
 
 EXPOSE 9000
 
-COPY ./tools/CLI_config.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/CLI_config.sh
-CMD ["/bin/sh", "/usr/local/bin/CLI_config.sh" ]
+COPY ./tools/wp_setup.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wp_setup.sh
+CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
 
-# ENTRYPOINT ["/usr/local/bin/CLI_config.sh"]
+# ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
 
 # CMD ["/usr/sbin/php-fpm7.3", "-F"]
