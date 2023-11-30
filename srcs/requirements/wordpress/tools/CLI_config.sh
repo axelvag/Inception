@@ -18,6 +18,8 @@ else
         --dbhost=$WORDPRESS_DB_HOST \
         --dbprefix=wp_ --allow-root
 
+    cat /wp-config.php
+
     echo "2"
     # auto rempli la page de perso
     wp core install --allow-root \

@@ -40,8 +40,6 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 WORKDIR /var/www/html/
 
-RUN cat /wp-config.php
-
 RUN mkdir -p /run/php
 
 EXPOSE 9000
