@@ -46,7 +46,7 @@ EXPOSE 9000
 COPY ./tools/CLI_config.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/CLI_config.sh
 # ENTRYPOINT ["/usr/local/bin/CLI_config.sh"]
-CMD ["/bin/bash", "/usr/local/bin/CLI_config.sh" ]
+CMD ["/bin/sh", "/usr/local/bin/CLI_config.sh" ]
 
 
 # CMD ["/usr/sbin/php-fpm7.3", "-F"]
