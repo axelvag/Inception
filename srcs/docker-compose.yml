@@ -15,6 +15,8 @@ services:
     restart: unless-stopped # redémarre tant qu'il n'est pas stoppé 
     expose: # le port à exposer
     - "3306"
+    ports:
+    - "3306:3306" # le port à exposer sur la machine locale
 
   nginx:
     container_name: nginx
