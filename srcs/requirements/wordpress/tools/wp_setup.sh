@@ -9,11 +9,15 @@ wp core download --allow-root
 
 sleep 10
 
+echo "1"
+
 wp config create --dbname=$MYSQL_DATABASE \
                 --dbuser=$MYSQL_USER \
                 --dbpass=$MYSQL_PASSWORD \
                 --dbhost=$WORDPRESS_DB_HOST \
                 --dbprefix=wp_ --allow-root
+
+echo "2"
 
 # Install WordPress
 wp core install --allow-root \
@@ -22,6 +26,8 @@ wp core install --allow-root \
 --admin_user="$WORDPRESS_ADMIN_NAME" \
 --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
 --admin_email="$WORDPRESS_ADMIN_EMAIL"
+
+echo "3"
 
 wp user create --allow-root \
 "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
