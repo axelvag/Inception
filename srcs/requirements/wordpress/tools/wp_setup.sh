@@ -10,7 +10,7 @@ else
 	until mysqladmin -hmariadb -u$WORDPRESS_DB_USER -p$WORDPRESS_DB_USER_PASS ping && mariadb -hmariadb -u$WORDPRESS_DB_USER -p$WORDPRESS_DB_USER_PASS -e "SHOW DATABASES;" | grep "$WORDPRESS_DB_NAME"; \
 		do
 		echo 'Waiting for mariadb'
-		sleep 1
+		sleep 10
 	done
 
     echo "WP_SETUP.SH"
