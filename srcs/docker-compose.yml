@@ -10,7 +10,7 @@ volumes:
   mariadb_data:
     driver: local
     driver_opts:
-      device: /home/jlaisne/data/mariadb
+      device: /home/avaganay/data/mariadb
       type: 'none'
       o: 'bind'
 
@@ -18,7 +18,7 @@ volumes:
   wordpress_data:
     driver: local
     driver_opts:
-      device: /home/jlaisne/data/wordpress
+      device: /home/avaganay/data/wordpress
       type: 'none'
       o: 'bind'
 
