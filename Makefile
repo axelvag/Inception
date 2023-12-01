@@ -11,13 +11,13 @@ up:
 stop:
 		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env stop
 volumes:
-		sudo mkdir -p /home/jlaisne/data/wordpress
-		sudo mkdir -p /home/jlaisne/data/mariadb
+		sudo mkdir -p /home/avaganay/data/wordpress
+		sudo mkdir -p /home/avaganay/data/mariadb
 
 fclean:
 		sudo docker-compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
-		sudo rm -rf /home/jlaisne/data/wordpress
-		sudo rm -rf /home/jlaisne/data/mariadb
+		sudo rm -rf /home/avaganay/data/wordpress
+		sudo rm -rf /home/avaganay/data/mariadb
 
 rebuild:
 		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env build --no-cache
