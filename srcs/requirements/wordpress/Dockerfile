@@ -47,8 +47,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install wget -y
-
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
