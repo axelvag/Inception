@@ -32,7 +32,7 @@
 # RUN chmod +x /usr/local/bin/wp_setup.sh
 # CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
 
-# ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
+# # ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
 
 # CMD ["/usr/sbin/php-fpm7.3", "-F"]
 
