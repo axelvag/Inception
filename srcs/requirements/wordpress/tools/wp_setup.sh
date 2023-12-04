@@ -26,7 +26,7 @@ wp config create --dbname=$MYSQL_DATABASE \ # wordpress
                 --dbuser=$MYSQL_USER \ 
                 --dbpass=$MYSQL_PASSWORD \
                 --dbhost=$WORDPRESS_DB_HOST \ #mariadb:3306
-                --dbprefix=wp_ --allow-root
+                --dbprefix=wp_
 echo "Après wp config create"
 
 # Install WordPress

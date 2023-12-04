@@ -40,7 +40,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
      -subj "/C=FR/ST=RHONE/L=LYON/O=42 Lyon/OU=42/CN=jlaisne.42.fr/UID=jlaisne"
 
 RUN chmod 777 -R /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+# RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 443
 
