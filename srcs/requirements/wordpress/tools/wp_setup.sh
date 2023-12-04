@@ -1,25 +1,27 @@
 
-if [ -f ./wp-config.php ]
-then
-	echo "Wordpress already installer"
-else
-	echo "Installing Wordpress"
+# Check if WordPress is already installed
+wp core download --allow-root
 
-	wp core download --allow-root
+sleep 10
 
-	until mysqladmin -hmariadb -u$WORDPRESS_DB_USER -p$WORDPRESS_DB_USER_PASS ping && mariadb -hmariadb -u$WORDPRESS_DB_USER -p$WORDPRESS_DB_USER_PASS -e "SHOW DATABASES;" | grep "$WORDPRESS_DB_NAME"; \
-		do
-		echo 'Waiting for mariadb'
-		sleep 1
-	done
+wp config create --dbname=$MYSQL_DATABASE \
+                --dbuser=$MYSQL_USER \
+                --dbpass=$MYSQL_PASSWORD \
+                --dbhost=$WORDPRESS_DB_HOST \
+                --dbprefix=wp_ --allow-root
 
-    echo "WP_SETUP.SH"
-    wp core config  --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER --dbpass=$WORDPRESS_DB_USER_PASS --dbhost=$WORDPRESS_DB_HOST --dbprefix=wp_ --allow-root
-    
-    wp core install --url=$DOMAIN_NAME --title="Inception" --admin_user=$WORDPRESS_ADMIN_NAME --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root
-    
-	wp user create $WORDPRESS_USER_NAME $WORDPRESS_USER_EMAIL --role=subscriber --user_pass=$WORDPRESS_USER_PASSWORD --display_name=$WORDPRESS_USER_DISPLAY --allow-root
-fi
+# Install WordPress
+wp core install --allow-root \
+  --url="$DOMAIN_NAME" \
+  --title="Inception" \
+  --admin_user="$WORDPRESS_ADMIN_NAME" \
+  --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
+  --admin_email="$WORDPRESS_ADMIN_EMAIL"
+
+wp user create --allow-root \
+  "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
+  --user_pass="$WORDPRESS_USER_PASSWORD" \
+  --role=subscriber
 
 # Mets les droit sur le dossier d'installation de wp
 chown -R www-data:www-data /var/www/html/
