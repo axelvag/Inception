@@ -38,7 +38,6 @@ COPY conf/mariadb.conf	/etc/mysql/mariadb.conf.d/mariadb.conf
 COPY ./tools/mariadb.sh /mariadb.sh
 RUN chmod +x mariadb.sh && chmod -R 777 /var/lib/mysql /var/run/mysqld
 
-
 EXPOSE 3306
 
 ENTRYPOINT ["/bin/bash", "./mariadb.sh"]
