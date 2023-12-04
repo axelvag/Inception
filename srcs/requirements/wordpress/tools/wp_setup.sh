@@ -1,9 +1,9 @@
 
 # Check if WordPress is already installed
-if [ -f /var/www/html/wp-config.php ]
-then
-    echo "Wordpress already installer"
-else
+# if [ -f /var/www/html/wp-config.php ]
+# then
+#     echo "Wordpress already installer"
+# else
 wp core download --allow-root
 
 sleep 10
@@ -27,7 +27,7 @@ wp user create --allow-root \
   "$WORDPRESS_USER_NAME" "$WORDPRESS_USER_EMAIL" \
   --user_pass="$WORDPRESS_USER_PASSWORD" \
   --role=subscriber
-fi
+# fi
 
 # Mets les droit sur le dossier d'installation de wp
 chown -R www-data:www-data /var/www/html/
