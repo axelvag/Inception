@@ -41,19 +41,11 @@ FROM debian:buster
 
 RUN sleep 10
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-
-RUN apt update && \
-    apt install dumb-init curl less -y
-
-# installer wget, un utilitaire en ligne de commande permettant de recuperer des fichiers depuis le Web
-RUN apt-get install wget -y
-
-RUN apt-get update && apt-get install -y \
-	mariadb-client \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y mariadb-client php-fpm php-mysql php-curl php-dom \
+                       php-imagick php-mbstring php-zip php-gd php-intl curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
