@@ -95,8 +95,8 @@ echo 'Starting php-fpm7.3'
 #     --role=subscriber
 # fi
 
-  # Set appropriate permissions
-chown -R www-data:www-data /var/www/html/
+#   # Set appropriate permissions
+# chown -R www-data:www-data /var/www/html/
 
 
 # # on attend que mariaDb soit up
