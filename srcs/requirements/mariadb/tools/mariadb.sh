@@ -16,7 +16,10 @@
 # Lance mysql (start) puis applique mysql -u root(pour dire que je suis root) -e(pour specifier une cmd sql a exec) a chaque ligne du script
 # GRANT ALL PRIV pour donner tous les droits a l'utilisateur
 # FLUSH PRIVILEGES pour appliquer les changements
+
+#!/bin/bash
 mysqld_safe &
+sleep 10
 mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" # Create the MySQL user for WordPress
 mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" # Grant privileges to the WordPress user on the WordPress database
 mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USER@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" # Flush privilegess

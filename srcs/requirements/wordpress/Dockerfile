@@ -39,7 +39,7 @@
 
 FROM debian:buster
 
-# RUN sleep 10
+RUN sleep 10
 
 RUN apt-get update && \
     apt-get install -y mariadb-client php-fpm php-mysql php-curl php-dom \
@@ -63,8 +63,8 @@ EXPOSE 9000
 
 COPY ./tools/wp_setup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wp_setup.sh
-CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
+# CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
 
-# ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
+ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
 
 # CMD ["/usr/sbin/php-fpm7.3", "-F"]
