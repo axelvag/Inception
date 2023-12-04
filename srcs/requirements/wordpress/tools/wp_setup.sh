@@ -4,7 +4,7 @@
 # then
 #     echo "Wordpress already installer"
 # else
-wp core download
+wp core download --allow-root
 
 echo "MYSQL_DATABASE: $MYSQL_DATABASE"
 echo "MYSQL_USER: $MYSQL_USER"
@@ -24,7 +24,7 @@ wp config create --dbname=$MYSQL_DATABASE \ # wordpress
                 --dbuser=$MYSQL_USER \ 
                 --dbpass=$MYSQL_PASSWORD \
                 --dbhost=$WORDPRESS_DB_HOST \ #mariadb:3306
-                --dbprefix=wp_
+                --dbprefix=wp_ --allow-root
 echo "Après wp config create"
 
 # Install WordPress
