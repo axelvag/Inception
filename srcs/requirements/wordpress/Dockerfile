@@ -11,9 +11,9 @@ RUN apt update && \
 # installer wget, un utilitaire en ligne de commande permettant de recuperer des fichiers depuis le Web
 RUN apt-get install wget -y
 
-ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
+# ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
 
-RUN chown -R root:root /var/www/wordpress
+RUN chown -R root:root /var/www/html
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
