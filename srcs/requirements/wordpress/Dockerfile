@@ -65,6 +65,6 @@ COPY ./tools/wp_setup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wp_setup.sh
 # CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
 
-ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
+ENTRYPOINT ["/usr/local/bin/wp_setup.sh", "/bin/bash"]
 
 # CMD ["/usr/sbin/php-fpm7.3", "-F"]
