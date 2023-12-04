@@ -4,9 +4,7 @@
 # then
 #     echo "Wordpress already installer"
 # else
-wp core download --allow-root
-
-sleep 10
+wp core download
 
 echo "MYSQL_DATABASE: $MYSQL_DATABASE"
 echo "MYSQL_USER: $MYSQL_USER"
