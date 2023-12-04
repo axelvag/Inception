@@ -24,4 +24,3 @@ mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USER@'%' IDENTIFIE
 mysql -e "FLUSH PRIVILEGES;" # Stop the MariaDB server gracefully
 mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown # Start the MariaDB service inside the Docker container
 mysqld_safe
-
