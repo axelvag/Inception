@@ -41,6 +41,6 @@ RUN chmod +x mariadb.sh && chmod -R 777 /var/lib/mysql /var/run/mysqld
 
 EXPOSE 3306
 
-ENTRYPOINT ["./mariadb.sh", "/bin/bash"]
+ENTRYPOINT ["/bin/bash", "./mariadb.sh"]
 # CMD ["/bin/sh", "./mariadb.sh"]
 
