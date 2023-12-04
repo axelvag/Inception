@@ -22,7 +22,7 @@ echo "WORDPRESS_USER_PASSWORD: $WORDPRESS_USER_PASSWORD"
 
 # Remplissage du formulaire
 echo "Avant wp config create"
-wp config create --dbname=$MYSQL_DATABASE \ # wordpress
+sudo -u www-data wp config create --dbname=$MYSQL_DATABASE \ # wordpress
                 --dbuser=$MYSQL_USER \ 
                 --dbpass=$MYSQL_PASSWORD \
                 --dbhost=$WORDPRESS_DB_HOST \ #mariadb:3306
@@ -31,7 +31,7 @@ echo "Après wp config create"
 
 # Install WordPress
 echo "Avant wp core install"
-wp core install --allow-root \
+sudo -u www-data wp core install --allow-root \
   --url="$DOMAIN_NAME" \
   --title="Inception" \
   --admin_user="$WORDPRESS_ADMIN_NAME" \
