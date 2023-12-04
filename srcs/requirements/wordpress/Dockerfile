@@ -49,10 +49,12 @@ RUN apt-get update && \
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
+# installer le CLI qui configure automatiquement wordpress
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x wp-cli.phar \
 	&& mv wp-cli.phar /usr/local/bin/wp
 
+# entrer dans le dossier /var/www/html
 WORKDIR /var/www/html/
 
 RUN mkdir -p /run/php

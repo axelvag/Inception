@@ -74,9 +74,8 @@ version: '3'
 services:
     mariadb:
       build:
-        context: requirements/mariadb
-      env_file: 
-        - .env 
+        context: requirements/mariadb # ou se trouve son Dockerfile
+      env_file: .env 
       restart: always
       container_name: mariadb
       image: mariadb:42
@@ -90,8 +89,7 @@ services:
     wordpress:
       build:
         context: requirements/wordpress
-      env_file: 
-        - .env 
+      env_file: .env 
       container_name: wordpress
       restart: always
       image: wordpress:42
@@ -107,8 +105,7 @@ services:
     nginx:
       build:
         context: requirements/nginx
-      env_file: 
-        - .env 
+      env_file: .env 
       restart: always
       container_name: nginx
       image: nginx:42
