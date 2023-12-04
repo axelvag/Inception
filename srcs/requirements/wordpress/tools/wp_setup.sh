@@ -12,7 +12,7 @@ sleep 10
 wp config create --dbname=$MYSQL_DATABASE \ # wordpress
                 --dbuser=$MYSQL_USER \ 
                 --dbpass=$MYSQL_PASSWORD \
-                --dbhost=$WORDPRESS_DB_HOST \
+                --dbhost=$WORDPRESS_DB_HOST \ #mariadb:3306
                 --dbprefix=wp_ --allow-root
 
 # Install WordPress
