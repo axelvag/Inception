@@ -68,34 +68,13 @@
 #       o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
 #       device: '/home/avaganay/data/mariadb'  #Ou stocker le dossier sur votre ordinateur en local
 
+# derniere version de docker-compose
 version: '3'
 
-networks:
-    inception:
-        name: inception
-        driver: bridge
-  
-volumes:
-
-  mariadb_data:
-    driver: local
-    driver_opts:
-      device: /home/avaganay/data/mariadb
-      type: 'none'
-      o: 'bind'
-
-
-  wordpress_data:
-    driver: local
-    driver_opts:
-      device: /home/avaganay/data/wordpress
-      type: 'none'
-      o: 'bind'
-
 services:
-
     mariadb:
-      build: requirements/mariadb
+      build:
+        context: requirements/mariadb
       env_file: 
         - .env 
       restart: always
@@ -103,13 +82,14 @@ services:
       image: mariadb:42
       volumes:
         - mariadb_data:/var/lib/mysql
+      networks:
+        - inception # à quel network il appartient
       ports:
         - "3306"
-      networks:
-        - inception
 
     wordpress:
-      build: requirements/wordpress
+      build:
+        context: requirements/wordpress
       env_file: 
         - .env 
       container_name: wordpress
@@ -119,13 +99,14 @@ services:
         - mariadb
       volumes:
         - wordpress_data:/var/www/html
-      ports:
-        - "9000"
       networks:
         - inception
+      ports:
+        - "9000"
 
     nginx:
-      build: requirements/nginx
+      build:
+        context: requirements/nginx
       env_file: 
         - .env 
       restart: always
@@ -133,10 +114,28 @@ services:
       image: nginx:42
       depends_on:
         - wordpress
-      ports:
-        - "443:443"
       volumes:
         - wordpress_data:/var/www/html
       networks:
         - inception
+      ports:
+        - "443:443"
 
+networks:
+    inception:
+        driver: bridge # le type de commucation entre les 3 containers
+        name: inception
+
+volumes:
+  mariadb_data:
+    driver: local # ici nous stockons le volume en local
+    driver_opts:
+      type: 'none'
+      o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
+      device: /home/avaganay/data/mariadb #Ou stocker le dossier sur votre ordinateur en local
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/avaganay/data/wordpress

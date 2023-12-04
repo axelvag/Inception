@@ -26,16 +26,18 @@
 
 FROM debian:buster
 
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y mariadb-server 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y mariadb-server && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/run/mysqld && mkdir -p /var/lib/mysql
 
 COPY conf/mariadb.conf	/etc/mysql/mariadb.conf.d/mariadb.conf
 COPY ./tools/mariadb.sh /mariadb.sh
-
 RUN chmod +x mariadb.sh && chmod -R 777 /var/lib/mysql /var/run/mysqld
+
 
 EXPOSE 3306
 
