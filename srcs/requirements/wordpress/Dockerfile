@@ -47,6 +47,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get install wget -y
+
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -54,13 +56,15 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	&& mv wp-cli.phar /usr/local/bin/wp
 
 WORKDIR /var/www/html/
+
 RUN mkdir -p /run/php
 
 EXPOSE 9000
 
 COPY ./tools/wp_setup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wp_setup.sh
+CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
 
 # ENTRYPOINT ["/usr/local/bin/wp_setup.sh"]
 
-CMD ["/bin/sh", "/usr/local/bin/wp_setup.sh" ]
+# CMD ["/usr/sbin/php-fpm7.3", "-F"]
