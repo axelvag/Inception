@@ -46,7 +46,7 @@ services:
       networks:
         - inception
       ports:
-        - "443:443"
+        - "443:443" #port mapping pour donner et reevoir depuis www/internet
 
 networks:
     inception:
