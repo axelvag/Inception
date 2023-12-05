@@ -1,6 +1,7 @@
 [client-server]
 
-# Include additional configuration files from these directories
+# MariaDB doit inclure les fichiers de configuration situés dans les répertoires spécifiés
+# pour placer ce mariadb.cnf
 # !includedir /etc/mysql/conf.d/
 # !includedir /etc/mysql/mariadb.conf.d/
 
