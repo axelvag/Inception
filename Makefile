@@ -6,7 +6,7 @@ build:
 		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env build
 
 up:
-		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env up --allow-root
+		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env up
 
 stop:
 		sudo docker-compose -f srcs/docker-compose.yml --env-file srcs/.env stop
