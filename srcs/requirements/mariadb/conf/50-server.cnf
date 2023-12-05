@@ -17,13 +17,3 @@ port = 3306
 
 # Set the MariaDB user
 user = mysql
-
-# # Pour indiquer le type de la configuration du fichier
-# [mysqld]
-
-# datadir = /var/lib/mysql
-# socket  = /run/mysqld/mysqld.sock
-# # Toutes les IP du réseau peuvent se connecter
-# bind_address=*   # =XXX.XXX.XX.XX
-# port = 3306
-# user = mysql
