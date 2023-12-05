@@ -1,19 +1,7 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get install -y \
-	mariadb-client \
-	php-fpm \
-	php-mysql \
-	php-curl \
-	php-dom \
-	php-imagick \
-	php-mbstring \
-	php-zip \
-	php-gd \
-	php-intl \
-	curl \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y mariadb-client php-fpm php-mysql php-curl php-dom php-imagick php-mbstring php-zip php-gd php-intl curl
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
