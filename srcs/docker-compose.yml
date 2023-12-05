@@ -23,7 +23,7 @@ services:
       container_name: wordpress
       restart: always
       image: wordpress:42
-      depends_on:
+      depends_on: # ne pas démarrer NGINX tant que WordPress n'a pas démarré.
         - mariadb
       volumes:
         - wordpress_data:/var/www/html
@@ -57,9 +57,9 @@ volumes:
   mariadb_data:
     driver: local # ici nous stockons le volume en local
     driver_opts:
-      type: 'none'
-      o: 'bind' # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
-      device: /home/avaganay/data/mariadb #Ou stocker le dossier sur votre ordinateur en local
+      type: 'none' # aucun type spécifique
+      o: 'bind' # les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
+      device: /home/avaganay/data/mariadb # ou stocker le dossier sur votre ordinateur en local
   wordpress_data:
     driver: local
     driver_opts:

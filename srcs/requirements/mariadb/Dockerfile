@@ -7,7 +7,7 @@ RUN apt-get update -y && \
 
 RUN mkdir -p /var/run/mysqld && mkdir -p /var/lib/mysql
 
-COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
+COPY conf/mariadb.cnf	/etc/mysql/mariadb.conf.d/mariadb.cnf
 COPY ./tools/config.sh /config.sh
 
 RUN chmod +x config.sh && chmod -R 777 /var/lib/mysql /var/run/mysqld
