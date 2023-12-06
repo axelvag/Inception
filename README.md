@@ -13,7 +13,7 @@
     - **EXPOSE** : expose le port spécifié et le rend disponible uniquement pour la communication entre conteneurs. 
     - **ENTRYPOINT** : lance le script
 
-- Docker-compose: Comme un Makifile: Orchestre les docker, il gere les dependances et sert a partager des application multi-conteneurs
+- Docker-compose: Comme un Makefile: Orchestre les docker, il gere les dependances et sert a partager des application multi-conteneurs
 (permet de faire compiler les autre Dockerfile des autre images)
 
 - Volumes: 
