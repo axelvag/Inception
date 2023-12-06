@@ -20,9 +20,9 @@
   > Sans docker-compose, c'est comme s'il n'y avais pas de Makefile, il faut build les conteneur un a un sans ce tromper d'ordre pour les dependances par exemple
 
 - The benefit of Docker compared to VMs :
- - Les docker partagent le meme noyau OS donc plus rapide a installer et tout
- - Les docker encapsulent une application et ses dependances, garantissant une portabilite entre differents ordinateurs
- - Ils ont des deploiement simplifier avec kubernetes par exemple
+    - Les docker partagent le meme noyau OS donc plus rapide a installer et tout
+    - Les docker encapsulent une application et ses dependances, garantissant une portabilite entre differents ordinateurs
+    - Ils ont des deploiement simplifier avec kubernetes par exemple
    
 - Volumes: 
     - **PERSISTANCE**sont utilise pour persister et partager les donnes contrairement aux donnes stocker dans les conteneurs
