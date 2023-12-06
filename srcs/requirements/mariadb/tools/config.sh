@@ -6,7 +6,7 @@
 # GRANT ALL PRIV pour donner tous les droits a l'utilisateur
 # FLUSH PRIVILEGES pour appliquer les changements
 
-# Start the MariaDB service inside the Docker container
+# Lance le serveur MySQL de manière securisee en arrière-plan
 mysqld_safe &
 
 sleep 10
@@ -16,7 +16,8 @@ mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS
 mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USER@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
 mysql -e "FLUSH PRIVILEGES;"
 
-# Stop the MariaDB server gracefully
+# Arrête le serveur MySQL de maniere securisee à l'aide de l'outil
 mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
 
+# Redemarre le serveur MySQL en mode securise ce qui peut etre utile pour garantir que le serveur redemarre apres la configuration
 mysqld_safe

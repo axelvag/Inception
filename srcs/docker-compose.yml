@@ -12,7 +12,7 @@ services:
       volumes:
         - mariadb_data:/var/lib/mysql
       networks:
-        - inception # à quel network il appartient
+        - inception # a quel network il appartient
       ports:
         - "3306"
 
@@ -23,7 +23,7 @@ services:
       container_name: wordpress
       restart: always
       image: wordpress:42
-      depends_on: # ne pas démarrer NGINX tant que WordPress n'a pas démarré.
+      depends_on: # ne pas demarrer NGINX tant que WordPress n'a pas demarre.
         - mariadb
       volumes:
         - wordpress_data:/var/www/html
