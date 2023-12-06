@@ -1,0 +1,68 @@
+# derniere version de docker-compose
+version: '3'
+
+services:
+    mariadb:
+      build:
+        context: requirements/mariadb # ou se trouve son Dockerfile
+      env_file: .env 
+      restart: always
+      container_name: mariadb
+      image: mariadb:42
+      volumes:
+        - mariadb_data:/var/lib/mysql
+      networks:
+        - inception # a quel network il appartient
+      ports:
+        - "3306"
+
+    wordpress:
+      build:
+        context: requirements/wordpress
+      env_file: .env 
+      container_name: wordpress
+      restart: always
+      image: wordpress:42
+      depends_on: # ne pas demarrer NGINX tant que WordPress n'a pas demarre.
+        - mariadb
+      volumes:
+        - wordpress_data:/var/www/html
+      networks:
+        - inception
+      ports:
+        - "9000"
+
+    nginx:
+      build:
+        context: requirements/nginx
+      env_file: .env 
+      restart: always
+      container_name: nginx
+      image: nginx:42
+      depends_on:
+        - wordpress
+      volumes:
+        - wordpress_data:/var/www/html
+      networks:
+        - inception
+      ports:
+        - "443:443" #port mapping pour donner et reevoir depuis www/internet
+
+networks:
+    inception:
+        driver: bridge # le type de commucation entre les 3 containers
+        name: inception
+
+volumes:
+  mariadb_data:
+    driver: local # ici nous stockons le volume en local
+    driver_opts:
+      type: 'none' # aucun type spécifique
+      o: 'bind' # les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
+      device: /home/avaganay/data/mariadb # ou stocker le dossier sur votre ordinateur en local
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/avaganay/data/wordpress

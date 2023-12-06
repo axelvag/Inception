@@ -1,0 +1,20 @@
+[client-server]
+
+# MariaDB doit inclure les fichiers de configuration situés dans les répertoires spécifiés
+# pour placer ce mariadb.cnf
+# !includedir /etc/mysql/conf.d/
+# !includedir /etc/mysql/mariadb.conf.d/
+
+[mysqld]
+
+# Set the data directory where MariaDB stores its databases
+datadir = /var/lib/mysql
+
+# Allow connections from any IP address
+bind_address = *
+
+# Set the port for MariaDB to listen on
+port = 3306
+
+# Set the MariaDB user
+user = mysql
