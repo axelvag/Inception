@@ -1,5 +1,7 @@
 # Inception
 
+![image](image/image.png)
+
 - DOCKER: est une techno de conteneurisation qui rend le deploiement d'application plus rapide, et plus facile
 
 - conteneur: est une machine virtuelle sans noyau = image
