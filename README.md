@@ -2,17 +2,51 @@
 
 ![image](image/image.png)
 
-- DOCKER: est une techno de conteneurisation qui rend le deploiement d'application plus rapide, et plus facile
+# My first Docker project !!
 
-- conteneur: est une machine virtuelle sans noyau = image
+This project aims to broaden my knowledge of system administration by using Docker. I had to virtualize several Docker images, creating them in my new personal virtual machine (Oracle VM VirtualBox).
 
-- Docker Hub : app store, contenant des images(conteneurs) de millier de personnes simplifiant encore plus l'usage.
+## How
 
-- Dockerfile: fichier qui contient une serie d'instruction utilise pour cree un image, pour pouvoir lance des conteneurs.
-    - **FROM** : savoir sur quel OS est notre machine
-    - **RUN** : lance une commande
-    - **COPY** : copie aussi simple que ca
-    - **EXPOSE** : expose le port spécifié et le rend disponible uniquement pour la communication entre conteneurs. 
+I use:
+
+<b>WORDPRESS</b>
+> for my front-end website
+
+<b>MARIADB</b>
+> for my back-end data base
+
+<b>NGINX</b>
+> for my server
+
+## Subject's requests
+
+Each Docker image must have the same name as its corresponding service.
+Each service has to run in a dedicated container.
+For performance matters, the containers must be built either from the penultimate stable version of Alpine or Debian. The choice is yours.
+You also have to write your own Dockerfiles, one per service. The Dockerfiles must be called in your docker-compose.yml by your Makefile.
+It means you have to build yourself the Docker images of your project. It is then for- bidden to pull ready-made Docker images, as well as using services such as DockerHub (Alpine/Debian being excluded from this rule).
+You then have to set up:
+• A Docker container that contains NGINX with TLSv1.2 or TLSv1.3 only.
+• A Docker container that contains WordPress + php-fpm (it must be installed and configured) only without nginx.
+• A Docker container that contains MariaDB only without nginx.
+• A volume that contains your WordPress database.
+• A second volume that contains your WordPress website files.
+• A docker-network that establishes the connection between your containers. Your containers have to restart in case of a crash.
+
+## Some knowledge
+
+- Docker: is a containerization technology that makes application deployment faster and easier.
+
+- Container: is a virtual machine without kernel = image.
+
+- Docker Hub : like Github, containing images (containers) of thousands of people simplifying use even further.
+
+- Dockerfile: file which contains a series of instructions used to create an image, to be able to launch containers.
+    - **FROM** : know what OS our machine is on
+    - **RUN** : launch an order
+    - **COPY** : copy from one place to another, as simple as that
+    - **EXPOSE** : exposes the specified port and makes it available only for inter-container communication 
     - **ENTRYPOINT** : lance le script
 
 - Docker-compose: Comme un Makefile: Orchestre les docker, il gere les dependances et sert a partager des application multi-conteneurs
