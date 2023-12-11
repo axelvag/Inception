@@ -22,16 +22,28 @@ I use:
 ## Subject's requests
 
 Each Docker image must have the same name as its corresponding service.
+
 Each service has to run in a dedicated container.
+
 For performance matters, the containers must be built either from the penultimate stable version of Alpine or Debian. The choice is yours.
+
 You also have to write your own Dockerfiles, one per service. The Dockerfiles must be called in your docker-compose.yml by your Makefile.
+
 It means you have to build yourself the Docker images of your project. It is then for- bidden to pull ready-made Docker images, as well as using services such as DockerHub (Alpine/Debian being excluded from this rule).
+
 You then have to set up:
+
 • A Docker container that contains NGINX with TLSv1.2 or TLSv1.3 only.
-• A Docker container that contains WordPress + php-fpm (it must be installed and configured) only without nginx.
+
+• A Docker container that contains WordPress + php-fpm (it must be installed 
+and configured) only without nginx.
+
 • A Docker container that contains MariaDB only without nginx.
+
 • A volume that contains your WordPress database.
+
 • A second volume that contains your WordPress website files.
+
 • A docker-network that establishes the connection between your containers. Your containers have to restart in case of a crash.
 
 ## Some knowledge
@@ -47,71 +59,71 @@ You then have to set up:
     - **RUN** : launch an order
     - **COPY** : copy from one place to another, as simple as that
     - **EXPOSE** : exposes the specified port and makes it available only for inter-container communication 
-    - **ENTRYPOINT** : lance le script
+    - **ENTRYPOINT** : run the script
 
-- Docker-compose: Comme un Makefile: Orchestre les docker, il gere les dependances et sert a partager des application multi-conteneurs
-(permet de faire compiler les autre Dockerfile des autre images)
+- Docker-compose: Like a Makefile: Orchestrates docker, it manages dependencies and is used to share multi-container applications
+(allows you to compile the other Dockerfiles of other images)
 
 - The difference between a Docker image used with docker compose and without docker compose:
-  > Sans docker-compose, c'est comme s'il n'y avais pas de Makefile, il faut build les conteneur un a un sans ce tromper d'ordre pour les dependances par exemple
+  > Without docker-compose, it's as if there was no Makefile, you have to build the containers one by one without wrong order for dependencies for example
 
 - The benefit of Docker compared to VMs :
-    - Les docker partagent le meme noyau OS donc plus rapide a installer et tout
-    - Les docker encapsulent une application et ses dependances, garantissant une portabilite entre differents ordinateurs
-    - Ils ont des deploiement simplifier avec kubernetes par exemple
+    - Dockers share the same OS kernel so faster to install and everything
+    - Dockers encapsulate an application and its dependencies, guaranteeing portability between different computers
+    - They have simplified deployment with Kubernetes for example
    
 - Volumes: 
-    - **PERSISTANCE**sont utilise pour persister et partager les donnes contrairement aux donnes stocker dans les conteneurs
-    - **Independance**: Les volumes sont gérés par Docker et sont séparés des conteneurs. Cela signifie que les données dans les volumes ne sont pas affectées lorsque vous mettez à jour ou redéployez un conteneur.
+    - **PERSISTANCE**: Used to persist and share data, unlike data stored in containers.
+    - **Independance**: Volumes are managed by Docker and are separate from containers. This means that data in volumes is not affected when you update or redeploy a container.
 
-    = moyen de stocker et gerer les donnes.
+    = A means to store and manage data.
 
-- Docker-network: est un concept dans Docker qui permet de definir et de gerer les communication entre les conteneur et le monde exterieur.
-    - <Bridge : Le réseau par défaut pour les conteneurs, utilisé pour la communication sur un seul hôte Docker. Il permet à des conteneurs de se parler et de se connecter au réseau externe via le serveur hôte.>
+- Docker-network: is a concept facilitating communication between containers and the external world, employing default bridges for intra-container communication and enabling port mapping for external access.
+  
+    - <Bridge : The default network for containers, used for communication on a single Docker host. It allows containers to communicate with each other and connect to the external network via the host server.>
     
-    - port-mapping: rendre les ports d'un conteneurs accessibles de l'exterieur du conteneurs.
-    Le port mapping est donc un élément essentiel pour la mise en réseau des conteneurs Docker, permettant l'accès aux services et applications exécutés dans ces conteneurs depuis l'extérieur.
+    - port-mapping: Making a container's ports accessible from outside the container. Port mapping is essential for Docker container networking, enabling access to services and applications running in these containers from the outside.
 
 {
-    Dans le docker-compose.yml: En résumé, dans ce service nginx, le port 443 du conteneur est mappé sur le port 443 de l'hôte, permettant ainsi d'accéder au serveur web nginx depuis l'extérieur sur le port HTTPS standard. Les dépendances, les volumes et le réseau sont également configurés pour assurer une interaction appropriée avec les autres services, notamment WordPress.
+    In the docker-compose.yml: In summary, in this nginx service, the container's port 443 is mapped to the host's port 443, allowing access to the nginx web server from the outside on the standard HTTPS port. Dependencies, volumes, and the network are also configured to ensure proper interaction with other services, including WordPress.
 }
 
-**SSL et TLS**
-    - SSL et TLS sont deux protocoles qui permettent l’authentification, et le chiffrement des données qui transitent entre des serveurs.
+**SSL and TLS**
+    - SSL and TLS are two protocols that allow authentication and encryption of data transmitted between servers.
 
 
 ------------------------------------------------------
 
-** Difference entre une image Docker utilise avec Docker-compose et sans Docker-compose:
+** Difference between a Docker image used with Docker-compose and without Docker-compose:
 
-    - Sans:
-        - Commandes individuelles
+    - Without:
+        - Individual commands
         - configurations manuelle
         - Gestion isole
 
-    - Avec:
+    - With:
         - Fichier de configuration
         - Orchestration de plusieur conteneur
         - Demarrage et arret coherant
         - Reseaux et communication inter-conteneur
 
-En resume, la difference n'est pas dans l'image elle - meme mais plutot la maniere dont elles sont gerer et configurer.
+In summary, the difference is not in the image itself but rather in how they are managed and configured.
 
-** Docker offre plusieurs avantages par rapport aux machines virtuelles (VMs), en particulier en termes d'efficacité, de légèreté et de rapidité. 
+** Docker offers several advantages over virtual machines (VMs), especially in terms of efficiency, lightweight, and speed. 
 
-    - Efficacité des Ressources
-        - Docker: utilise moins de ressource car les conteneurs utilise le meme noyau
-        - VMs: Chaque Vms fonctionne avec son propre OS donc requiert plus de ressource
+    - Resource Efficiency:
+        - Docker:  Uses fewer resources as containers share the same kernel.
+        - VMs: Each VM runs with its own OS, requiring more resources.
 
-    - Demarrage Rapide pour Docker comparer au vms
+    - Quick Start for Docker compared to VMs
 
-    - Portabilite
-        - Docker: facilement deplacable dans un autre environnment 
-        - Vms: moins flexibles
+    - Portability:
+        - Docker: Easily movable to another environment
+        - VMs: Less flexible.
 
-    .....
 
-En resume,  efficacité des ressources, une flexibilité, et une rapidité de déploiement.
+In summary, resource efficiency, flexibility, and rapid deployment.
+
 
 docker exec -it mariadb mariadb
 SHOW tables;
