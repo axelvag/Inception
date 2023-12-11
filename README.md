@@ -19,6 +19,28 @@ I use:
 <b>NGINX</b>
 > for my server
 
+# STARTING
+
+```bash
+# clone this repo
+$ git clone https://github.com/axelvag/Inception Inception
+
+# enter
+$ cd Inception
+
+# Compile this project
+$ make
+
+# Wait 1 min 30 to have:
+nginx: success
+mariadb: success
+wordpress: success
+
+# then open Google and search https://localhost:443
+# localhost = 127.0.0.1
+
+```
+
 ## Subject's requests
 
 Each Docker image must have the same name as its corresponding service.
