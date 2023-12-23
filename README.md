@@ -23,7 +23,7 @@ I use:
 
 ```bash
 # clone this repo
-$ git clone https://github.com/axelvag/Inception Inception
+$ git clone https://github.com/axelvag/Inception
 
 # enter
 $ cd Inception
